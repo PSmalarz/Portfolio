@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="pl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Pong z poziomami trudności</title>
+		<style>
+			body {
+				margin: 0;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				height: 100vh;
+				background: #6d2020;
+				color: rgb(63, 0, 0);
+				font-family: Arial;
+			}
+			canvas {
+				border: 3px solid #050000;
+				margin-top: 20px;
+			}
+			button {
+				margin: 30px;
+				padding: 10px 20px;
+				font-size: 16px;
+				cursor: pointer;
+				background-color: #6708e4;
+				color: white;
+			}
+		</style>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+			rel="stylesheet"
+		/>
+
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<!-- Nagłówek -->
+		<nav class="navbar navbar-dark bg-dark">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#">Menu</a>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarNav"
+					aria-controls="navbarNav"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav ms-auto">
+						<li class="nav-item">
+							<a class="nav-link text-light" href="index.html">Strona główna</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light" href="projekty.html">Projekty</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light" href="fotografia.html"
+								>Fotografia</a
+							>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<h1>Pong - wybierz poziom trudności</h1>
+		<div>
+			<button onclick="startGame('easy')">Łatwy</button>
+			<button onclick="startGame('medium')">Średni</button>
+			<button onclick="startGame('hard')">Trudny</button>
+		</div>
+		<canvas id="game"></canvas>
+
+		<script>
+			const canvas = document.getElementById("game");
+			const ctx = canvas.getContext("2d");
+			canvas.width = 1000;
+			canvas.height = 500;
+			const cw = canvas.width;
+			const ch = canvas.height;
+
+			let playerScore = 0;
+			let aiScore = 0;
+			const winningScore = 5;
+			let ball, player, ai;
+			let animationId;
+			let paused = false;
+			let pauseTime = 1000;
+			let pauseStart = 0;
+			let lastScorer = 0; // 1=player, 2=AI
+			let gameOver = false;
+
+			// Inicjalizacja gry
+			function initGame(aiSpeed, ballSpeed) {
+				playerScore = 0;
+				aiScore = 0;
+				paused = false;
+				gameOver = false;
+				lastScorer = 0;
+
+				ball = {
+					size: 20,
+					x: cw / 2,
+					y: ch / 2,
+					speedX: ballSpeed,
+					speedY: ballSpeed,
+				};
+				player = { x: 50, y: ch / 2 - 50, width: 12, height: 100, speed: 6 };
+				ai = {
+					x: cw - 62,
+					y: ch / 2 - 50,
+					width: 12,
+					height: 100,
+					speed: aiSpeed,
+				};
+			}
+
+			// Rysowanie prostokąta
+			function drawRect(x, y, w, h, color = "#fff") {
+				ctx.fillStyle = color;
+				ctx.fillRect(x, y, w, h);
+			}
+
+			// Kolizja piłki z paletką
+			function collision(b, p) {
+				return (
+					b.x < p.x + p.width &&
+					b.x + b.size > p.x &&
+					b.y < p.y + p.height &&
+					b.y + b.size > p.y
+				);
+			}
+
+			// Odbicie od paletki
+			function paddleBounce(paddle) {
+				const paddleCenter = paddle.y + paddle.height / 2;
+				const ballCenter = ball.y + ball.size / 2;
+				const distance = ballCenter - paddleCenter;
+				const normalized = distance / (paddle.height / 2);
+				const maxAngle = Math.PI / 4;
+				const angle = normalized * maxAngle;
+				const speed = Math.sqrt(ball.speedX ** 2 + ball.speedY ** 2);
+				ball.speedX = speed * Math.cos(angle) * (ball.x < cw / 2 ? 1 : -1);
+				ball.speedY = speed * Math.sin(angle);
+			}
+
+			// Reset piłki
+			function resetBall(direction = 1) {
+				ball.x = cw / 2 - ball.size / 2;
+				ball.y = ch / 2 - ball.size / 2;
+				ball.speedX = Math.abs(ball.speedX) * direction;
+				ball.speedY = Math.random() * 4 - 2;
+			}
+
+			// Aktualizacja piłki
+			function updateBall() {
+				if (!paused && !gameOver) {
+					ball.x += ball.speedX;
+					ball.y += ball.speedY;
+
+					if (collision(ball, player)) paddleBounce(player);
+					if (collision(ball, ai)) paddleBounce(ai);
+
+					if (ball.y <= 0 || ball.y + ball.size >= ch) ball.speedY *= -1;
+
+					if (ball.x <= 0) {
+						aiScore++;
+						lastScorer = 2;
+						paused = true;
+						pauseStart = Date.now();
+					}
+					if (ball.x + ball.size >= cw) {
+						playerScore++;
+						lastScorer = 1;
+						paused = true;
+						pauseStart = Date.now();
+					}
+				} else if (paused && !gameOver) {
+					ctx.fillStyle = "white";
+					ctx.font = "40px Arial";
+					ctx.textAlign = "center";
+					ctx.fillText(
+						lastScorer === 1 ? "Punkt dla Ciebie!" : "Punkt dla AI!",
+						cw / 2,
+						ch / 2,
+					);
+
+					if (Date.now() - pauseStart > pauseTime) {
+						resetBall(lastScorer === 1 ? -1 : 1);
+						paused = false;
+					}
+				}
+
+				if (playerScore >= winningScore || aiScore >= winningScore) {
+					gameOver = true;
+					paused = false;
+					ctx.fillStyle = "white";
+					ctx.font = "50px Arial";
+					ctx.textAlign = "center";
+					ctx.fillText(
+						playerScore >= winningScore ? "Wygrałeś!" : "Wygrał komputer!",
+						cw / 2,
+						ch / 2,
+					);
+					createRestartButton();
+				}
+			}
+
+			// AI
+			function updateAI() {
+				const centerAI = ai.y + ai.height / 2;
+				const centerBall = ball.y + ball.size / 2;
+				if (centerAI < centerBall) ai.y += ai.speed;
+				else ai.y -= ai.speed;
+				ai.y = Math.max(0, Math.min(ch - ai.height, ai.y));
+			}
+
+			// Plansza
+			function drawTable() {
+				drawRect(0, 0, cw, ch, "#0F0028");
+				for (let y = 20; y < ch; y += 30)
+					drawRect(cw / 2 - 3, y, 6, 16, "#000");
+			}
+
+			// Rysowanie wszystkich elementów
+			function drawAll() {
+				drawRect(player.x, player.y, player.width, player.height);
+				drawRect(ai.x, ai.y, ai.width, ai.height);
+				drawRect(ball.x, ball.y, ball.size, ball.size);
+
+				ctx.fillStyle = "purple";
+				ctx.font = "30px Arial";
+				ctx.textAlign = "center";
+				ctx.fillText(playerScore, cw / 4, 50);
+				ctx.fillText(aiScore, (3 * cw) / 4, 50);
+			}
+
+			// Pętla gry
+			function gameLoop() {
+				drawTable();
+				updateBall();
+				updateAI();
+				drawAll();
+				animationId = requestAnimationFrame(gameLoop);
+			}
+
+			// Sterowanie myszką
+			canvas.addEventListener("mousemove", (e) => {
+				const rect = canvas.getBoundingClientRect();
+				player.y = e.clientY - rect.top - player.height / 2;
+				player.y = Math.max(0, Math.min(ch - player.height, player.y));
+			});
+
+			// Start gry
+			function startGame(level) {
+				let aiSpeed, ballSpeed;
+				switch (level) {
+					case "easy":
+						aiSpeed = 2;
+						ballSpeed = 4;
+						break;
+					case "medium":
+						aiSpeed = 4;
+						ballSpeed = 5;
+						break;
+					case "hard":
+						aiSpeed = 6;
+						ballSpeed = 6;
+						break;
+				}
+				initGame(aiSpeed, ballSpeed);
+				if (animationId) cancelAnimationFrame(animationId);
+				const btn = document.getElementById("restartBtn");
+				if (btn) btn.remove();
+				gameLoop();
+			}
+
+			// Tworzenie przycisku restart
+			function createRestartButton() {
+				if (document.getElementById("restartBtn")) return;
+				const btn = document.createElement("button");
+				btn.id = "restartBtn";
+				btn.innerText = "Restart";
+				btn.onclick = () => {
+					startGame("medium"); // restart do średniego poziomu
+					btn.remove();
+				};
+				document.body.appendChild(btn);
+			}
+		</script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+
+		<!-- FOOTER -->
+		<footer>
+			<p>© 2026 Staszek. Wszystkie prawa zastrzeżone.</p>
+			<p>
+				<a href="index.html">Strona główna</a> |
+				<a href="projekty.html">Projekty</a> |
+				<a href="fotografia.html">Fotografia</a> |
+				<a href="kontakt.html">Kontakt</a>
+			</p>
+		</footer>
+	</body>
+</html>

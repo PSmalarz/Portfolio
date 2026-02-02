@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Fotografia</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="style.css" />
+		<style>
+			/* minimalny CSS dla modala */
+			.photo-grid img {
+				border-radius: 12px;
+				cursor: pointer;
+				transition:
+					transform 0.2s ease,
+					box-shadow 0.2s ease;
+			}
+			.photo-grid img:hover {
+				transform: scale(1.03);
+				box-shadow: 0 10px 30px rgba(155, 92, 255, 0.25);
+			}
+			.modal-content {
+				background-color: #121212;
+				border: none;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- NAVBAR -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
+			<div class="container-fluid">
+				<a class="navbar-brand text-light" href="index.html">Strona główna</a>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarNavAltMarkup"
+					aria-controls="navbarNavAltMarkup"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+					<div class="navbar-nav">
+						<a class="nav-link text-light" href="projekty.html">Projekty</a>
+						<a class="nav-link text-light" href="fotografia.html">Fotografia</a>
+						<a class="nav-link text-light" href="kontakt.html">O mnie</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<!-- SEKCJA FOTOGRAFIA -->
+		<section class="container py-5">
+			<h1 class="text-center mb-4">Fotografia</h1>
+			<p class="text-center muted mb-5">
+				Kilka kadrów złapanych spontanicznie. Bez spiny. Nie jestem profesjonalistą, a po prostu lubię uchwycić chwilę i do niej wrócić.
+			</p>
+
+			<div class="row g-4 photo-grid">
+				<div class="col-sm-6 col-md-4">
+					<img
+						src="rynek.jpg"
+						class="img-fluid thumb"
+						data-bs-toggle="modal"
+						data-bs-target="#photoModal"
+						data-img="rynek.jpg"
+						alt="Rynek"
+					/>
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<img
+						src="las.jpg"
+						class="img-fluid thumb"
+						data-bs-toggle="modal"
+						data-bs-target="#photoModal"
+						data-img="las.jpg"
+						alt="Las"
+					/>
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<img
+						src="niebo.jpg"
+						class="img-fluid thumb"
+						data-bs-toggle="modal"
+						data-bs-target="#photoModal"
+						data-img="niebo.jpg"
+						alt="Niebo"
+					/>
+				</div>
+
+				<div class="col-sm-6 col-md-4">
+					<img
+						src="autko.jpg"
+						class="img-fluid thumb"
+						data-bs-toggle="modal"
+						data-bs-target="#photoModal"
+						data-img="autko.jpg"
+						alt="autko"
+					/>
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<img
+						src="autko2.jpg"
+						class="img-fluid thumb"
+						data-bs-toggle="modal"
+						data-bs-target="#photoModal"
+						data-img="autko2.jpg"
+						alt="autko"
+					/>
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<img
+						src="balwan.jpg"
+						class="img-fluid thumb"
+						data-bs-toggle="modal"
+						data-bs-target="#photoModal"
+						data-img="balwan.jpg"
+						alt="balwan"
+					/>
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<img
+						src="bambi.jpg"
+						class="img-fluid thumb"
+						data-bs-toggle="modal"
+						data-bs-target="#photoModal"
+						data-img="bambi.jpg"
+						alt="bambi"
+					/>
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<img
+						src="bmw.jpg"
+						class="img-fluid thumb"
+						data-bs-toggle="modal"
+						data-bs-target="#photoModal"
+						data-img="bmw.jpg"
+						alt="bmw"
+					/>
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<img
+						src="dama.jpg"
+						class="img-fluid thumb"
+						data-bs-toggle="modal"
+						data-bs-target="#photoModal"
+						data-img="dama.jpg"
+						alt="dama"
+					/>
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<img
+						src="gory.jpg"
+						class="img-fluid thumb"
+						data-bs-toggle="modal"
+						data-bs-target="#photoModal"
+						data-img="gory.jpg"
+						alt="gory"
+					/>
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<img
+						src="jez.jpg"
+						class="img-fluid thumb"
+						data-bs-toggle="modal"
+						data-bs-target="#photoModal"
+						data-img="jez.jpg"
+						alt="jez"
+					/>
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<img
+						src="krk.jpg"
+						class="img-fluid thumb"
+						data-bs-toggle="modal"
+						data-bs-target="#photoModal"
+						data-img="krk.jpg"
+						alt="krk"
+					/>
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<img
+						src="kwiat.jpg"
+						class="img-fluid thumb"
+						data-bs-toggle="modal"
+						data-bs-target="#photoModal"
+						data-img="kwiat.jpg"
+						alt="kwiat"
+					/>
+				</div>
+
+				<div class="col-sm-6 col-md-4">
+					<img
+						src="las2.jpg"
+						class="img-fluid thumb"
+						data-bs-toggle="modal"
+						data-bs-target="#photoModal"
+						data-img="las2.jpg"
+						alt="las"
+					/>
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<img
+						src="mmauto.jpg"
+						class="img-fluid thumb"
+						data-bs-toggle="modal"
+						data-bs-target="#photoModal"
+						data-img="mmauto.jpg"
+						alt="mmauto"
+					/>
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<img
+						src="niebo2.jpg"
+						class="img-fluid thumb"
+						data-bs-toggle="modal"
+						data-bs-target="#photoModal"
+						data-img="niebo2.jpg"
+						alt="Niebo"
+					/>
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<img
+						src="odbicie.jpg"
+						class="img-fluid thumb"
+						data-bs-toggle="modal"
+						data-bs-target="#photoModal"
+						data-img="odbicie.jpg"
+						alt="odbicie"
+					/>
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<img
+						src="piesek.jpg"
+						class="img-fluid thumb"
+						data-bs-toggle="modal"
+						data-bs-target="#photoModal"
+						data-img="piesek.jpg"
+						alt="piesek"
+					/>
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<img
+						src="slimak.jpg"
+						class="img-fluid thumb"
+						data-bs-toggle="modal"
+						data-bs-target="#photoModal"
+						data-img="slimak.jpg"
+						alt="slimak"
+					/>
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<img
+						src="swiatlo.jpg"
+						class="img-fluid thumb"
+						data-bs-toggle="modal"
+						data-bs-target="#photoModal"
+						data-img="swiatlo.jpg"
+						alt="swiatlo"
+					/>
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<img
+						src="wies.jpg"
+						class="img-fluid thumb"
+						data-bs-toggle="modal"
+						data-bs-target="#photoModal"
+						data-img="wies.jpg"
+						alt="wies"
+					/>
+				</div>
+			</div>
+		</section>
+
+		<!-- FOOTER -->
+		<footer>
+			<p>© 2026 Piotrek. Wszystkie prawa zastrzeżone.</p>
+			<p>
+				<a href="index.html">Strona główna</a> |
+				<a href="projekty.html">Projekty</a> |
+				<a href="fotografia.html">Fotografia</a> |
+				<a href="kontakt.html">Kontakt</a>
+			</p>
+		</footer>
+
+		<!-- MODAL -->
+		<div class="modal fade" id="photoModal" tabindex="-1">
+			<div class="modal-dialog modal-dialog-centered modal-xl">
+				<div class="modal-content">
+					<div class="modal-body p-0">
+						<img src="" class="img-fluid w-100" id="modalImage" alt="" />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- BOOTSTRAP JS -->
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+			crossorigin="anonymous"
+		></script>
+
+		<!-- JS MODAL -->
+		<script>
+			const modal = document.getElementById("photoModal");
+			const modalImg = document.getElementById("modalImage");
+
+			modal.addEventListener("show.bs.modal", function (event) {
+				const img = event.relatedTarget;
+				modalImg.src = img.getAttribute("data-img");
+			});
+		</script>
+	</body>
+</html>

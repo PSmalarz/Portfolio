@@ -1,0 +1,862 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Kotek dnia</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="style.css" />
+		<style>
+			body {
+				background: radial-gradient(
+					circle at top,
+					rgba(0, 0, 0, 0.1),
+					#0c0225 70%
+				);
+				color: #e0e0e0;
+				font-family: "Inter", sans-serif;
+				text-align: center;
+				min-height: 100vh;
+				display: flex;
+				flex-direction: column;
+			}
+
+			/* NAVBAR */
+			.navbar {
+				background-color: #181818 !important;
+				border-bottom: 1px solid #2a2a2a;
+			}
+
+			.navbar-brand,
+			.nav-link {
+				font-weight: 500;
+			}
+			.nav-link {
+				color: #cfcfcf;
+				transition: color 0.2s;
+			}
+			.nav-link:hover {
+				color: #9b5cff;
+			}
+
+			/* Kotek card */
+			.card-kotek {
+				background-color: #1c1c1c;
+				border: 1px solid #2a2a2a;
+				border-radius: 16px;
+				padding: 2rem;
+				max-width: 450px;
+				margin: 3rem auto 1rem auto;
+				box-shadow: 0 8px 25px rgba(155, 92, 255, 0.1);
+			}
+
+			.card-kotek img {
+				width: 100%;
+				border-radius: 12px;
+				margin-bottom: 1rem;
+				object-fit: cover;
+				height: 320px;
+			}
+
+			.card-kotek h1 {
+				color: #9b5cff;
+				margin-bottom: 0.5rem;
+				font-size: 2rem;
+			}
+			.card-kotek p {
+				color: #bdbdbd;
+				font-size: 1rem;
+				margin-bottom: 1rem;
+			}
+
+			.cat-fact {
+				font-size: 0.9rem;
+				color: #cfc9ff;
+				font-style: italic;
+				margin-top: 1rem;
+			}
+
+			/* FOOTER */
+			footer {
+				margin-top: auto;
+				background-color: #181818;
+				border-top: 1px solid #37048a;
+				padding: 1.5rem 0;
+				color: #cfcfcf;
+			}
+
+			footer a {
+				color: #cfc9ff;
+				margin: 0 0.5rem;
+				text-decoration: none;
+			}
+			footer a:hover {
+				text-decoration: underline;
+			}
+
+			@media (max-width: 576px) {
+				.card-kotek {
+					margin: 2rem 1rem;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<!-- NAVBAR -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
+			<div class="container-fluid">
+				<a class="navbar-brand text-light" href="index.html">Strona główna</a>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarNavAltMarkup"
+					aria-controls="navbarNavAltMarkup"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+					<div class="navbar-nav">
+						<a class="nav-link text-light" href="projekty.html">Projekty</a>
+						<a class="nav-link text-light" href="fotografia.html">fotografia</a>
+						<a class="nav-link text-light" href="kontakt.html">O mnie</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<!-- KOTEK -->
+		<div class="card-kotek">
+			<img src="" alt="Kotek dnia" id="kotekImg" />
+			<h1 id="kotekName"></h1>
+			<p id="kotekDesc"></p>
+			<p class="cat-fact" id="catFact"></p>
+		</div>
+
+		<!-- FOOTER -->
+		<footer>
+			<p>© 2026 Staszek. Wszystkie prawa zastrzeżone.</p>
+			<p>
+				<a href="index.html">Strona główna</a> |
+				<a href="projekty.html">Projekty</a> |
+				<a href="fotografia.html">Fotografia</a> |
+				<a href="kontakt.html">Kontakt</a>
+			</p>
+		</footer>
+
+		<script>
+			// ===== KONFIGURACJA =====
+			const kotkiData = [
+				{
+					file: 1,
+					name: "Mistrz Drzemki",
+					desc: "Dziś jesteś offline i absolutnie nikogo to nie obchodzi.",
+				},
+				{
+					file: 2,
+					name: "Kot Kręgosłupowy",
+					desc: "Wstałeś źle, usiadłeś gorzej, a teraz tylko narzekanie.",
+				},
+				{
+					file: 3,
+					name: "Kot po Wszystkim",
+					desc: "Nie wiesz co się stało, ale na pewno było intensywnie.",
+				},
+				{
+					file: 4,
+					name: "Myśl… a Nie, Jednak Nie",
+					desc: "Masz genialną myśl — szkoda tylko, że zniknęła sekundę później.",
+				},
+				{
+					file: 5,
+					name: "Nie Słyszę, Nie Widzę",
+					desc: "Dziś selektywne słyszenie wjechało na pełnej.",
+				},
+				{
+					file: 6,
+					name: "Powiedz Mi To Prosto w Pysk",
+					desc: "Masz poważną minę i zero cierpliwości do głupot.",
+				},
+				{
+					file: 7,
+					name: "Kot Problematyczny",
+					desc: "To nie była Twoja wina… ale i tak ktoś wezwał kocie służby.",
+				},
+				{
+					file: 8,
+					name: "Mały Strachulec",
+					desc: "Trzymasz się życia (i nogi) jakby zaraz miał się skończyć świat.",
+				},
+				{
+					file: 9,
+					name: "Kot Oceniający",
+					desc: "Nic nie mówisz, ale wszyscy wiedzą, co myślisz.",
+				},
+				{
+					file: 10,
+					name: "Śmiech Przez Łzy",
+					desc: "Niby śmiesznie, ale coś tu jednak boli.",
+				},
+				{
+					file: 11,
+					name: "Kot Dramatyczny",
+					desc: "To nie jest zapach… to atak na Twoją godność.",
+				},
+				{
+					file: 12,
+					name: "Va Banque",
+					desc: "Oddajesz wszystko, bo i tak już wszystko jedno.",
+				},
+				{
+					file: 13,
+					name: "Kot Fantazja",
+					desc: "Dziś jesteś magiczny i lekko niebezpieczny.",
+				},
+				{
+					file: 14,
+					name: "Śpioch Ekstremalny",
+					desc: "Sen wszedł za mocno i nie planuje wychodzić.",
+				},
+				{
+					file: 15,
+					name: "Kot Adrenalina",
+					desc: "To był zły pomysł… ale już za późno.",
+				},
+				{
+					file: 16,
+					name: "Ja Mam Pytanie",
+					desc: "Chcesz coś powiedzieć, ale sam nie wiesz co.",
+				},
+				{
+					file: 17,
+					name: "Kot Samowystarczalny",
+					desc: "Radzi sobie sam. Nawet trochę za bardzo.",
+				},
+				{
+					file: 18,
+					name: "Emocjonalny Chaos",
+					desc: "Jednocześnie wszystko i nic — klasyczny dzień.",
+				},
+				{
+					file: 19,
+					name: "Szef Kuchni",
+					desc: "Gotujesz, ale nikt nie wie, czy to bezpieczne.",
+				},
+				{
+					file: 20,
+					name: "Kot Budyń",
+					desc: "Miało być elegancko, wyszło jak zawsze.",
+				},
+				{
+					file: 21,
+					name: "Kot Wojownik",
+					desc: "Nie zaczynałeś wojny… ale jesteś gotowy ją wygrać.",
+				},
+				{
+					file: 22,
+					name: "Dobry Dzień Kotku",
+					desc: "Masz dziś energię do interakcji. Krótko, ale masz.",
+				},
+				{
+					file: 23,
+					name: "Podwójna Moc",
+					desc: "Masz tak dobry humor, że rozdajesz go na lewo i prawo.",
+				},
+				{
+					file: 24,
+					name: "Kot w Swoim Świecie",
+					desc: "Muzyka gra, rzeczywistość nie istnieje.",
+				},
+				{
+					file: 25,
+					name: "Kot Informatyk",
+					desc: "Nie dotykaj. To jest ważne. Bardzo ważne.",
+				},
+				{
+					file: 26,
+					name: "Myśl… Znikła",
+					desc: "Znowu miałeś genialny plan, ale uciekł szybciej niż motywacja.",
+				},
+				{
+					file: 27,
+					name: "Smutny Kartofelek",
+					desc: "Siedzisz i myślisz, co poszło nie tak… wszystko.",
+				},
+				{
+					file: 28,
+					name: "Kot Zmęczony Istnieniem",
+					desc: "Siedzisz przy stole jakbyś właśnie skończył 12-godzinny dzień życia.",
+				},
+				{
+					file: 29,
+					name: "Pan Prezes",
+					desc: "Wyglądasz poważnie, choć nie do końca wiesz dlaczego.",
+				},
+				{
+					file: 30,
+					name: "Elegancja Sama w Sobie",
+					desc: "Dziś czujesz się ładnie i świat musi to zaakceptować.",
+				},
+				{
+					file: 31,
+					name: "Bezpieczna Kryjówka",
+					desc: "Ukryłeś się i nie planujesz wracać do rzeczywistości.",
+				},
+				{
+					file: 32,
+					name: "Świąteczny Sabotażysta",
+					desc: "Niby niewinnie, ale zaraz coś zgaśnie.",
+				},
+				{
+					file: 33,
+					name: "Kot Pokus",
+					desc: "Tylko jednego… no dobra, jeszcze jednego.",
+				},
+				{
+					file: 34,
+					name: "Rudy Relaks",
+					desc: "Przeciągasz się, bo życie i tak poczeka.",
+				},
+				{
+					file: 35,
+					name: "Kot Zakładnik",
+					desc: "Nie twoja decyzja, ale stres jak najbardziej twój.",
+				},
+				{
+					file: 36,
+					name: "Kot Filozof od Piwa",
+					desc: "Dziś życiowe prawdy przychodzą po kilku łykach.",
+				},
+				{
+					file: 37,
+					name: "Gwiazda Programu",
+					desc: "Nie wiesz czemu, ale wszyscy patrzą właśnie na Ciebie.",
+				},
+				{
+					file: 38,
+					name: "Kot Refleksyjny",
+					desc: "Patrzysz w dal i udajesz, że masz wszystko pod kontrolą.",
+				},
+				{
+					file: 39,
+					name: "Kot Po Pracy",
+					desc: "To był dzień, który zasługiwał na zakończenie.",
+				},
+				{
+					file: 40,
+					name: "Kot Detektyw",
+					desc: "Widzisz wszystko. I wszystkim trochę nie ufasz.",
+				},
+				{
+					file: 41,
+					name: "Kot Melancholia",
+					desc: "Leżysz tak i rozmyślasz, jakby to była scena z filmu.",
+				},
+				{
+					file: 42,
+					name: "Kot z Alternatywnej Rzeczywistości",
+					desc: "Jedna część Ciebie ogarnia, druga już dawno odpadła.",
+				},
+				{
+					file: 43,
+					name: "Kot Szczęście",
+					desc: "Daj mi jeszcze chwilę, jest idealnie.",
+				},
+				{
+					file: 44,
+					name: "Kot w Tarapatach",
+					desc: "Niby nic nie robiłeś, a jakoś się zaplątało.",
+				},
+				{
+					file: 45,
+					name: "Kot Niepokój",
+					desc: "Siedzisz w kącie i obserwujesz… na wszelki wypadek.",
+				},
+				{
+					file: 46,
+					name: "Kot Pokrzywdzony",
+					desc: "Dlaczego świat nie pozwala Ci być szczęśliwym?",
+				},
+				{
+					file: 47,
+					name: "Kot Degustator",
+					desc: "Jesz, ale z pełną kontrolą sytuacji (teoretycznie).",
+				},
+				{
+					file: 48,
+					name: "Kot Bohater",
+					desc: "Śpisz spokojnie, bo ktoś czuwa. Nawet jeśli to maskotka.",
+				},
+				{
+					file: 49,
+					name: "Kot Diabelski",
+					desc: "Trochę chaosu nikomu jeszcze nie zaszkodziło.",
+				},
+				{
+					file: 50,
+					name: "Kot Wkurzony",
+					desc: "Nie podchodź. Serio. To nie jest dobry moment.",
+				},
+				{
+					file: 51,
+					name: "Mechanik z Marzeń",
+					desc: "Niby w koszulce Ferrari, ale i tak robisz wszystko na czuja.",
+				},
+				{
+					file: 52,
+					name: "Kot Spokój w Chaosie",
+					desc: "Idziesz dalej, mimo że za Tobą właśnie płonie świat.",
+				},
+				{
+					file: 53,
+					name: "Kot Zachwyt",
+					desc: "Ale fajny kot… czekaj, to ja!",
+				},
+				{
+					file: 54,
+					name: "Zdziwienie Poziom Hard",
+					desc: "Ty zdziwiony, Ty z tyłu też zdziwiony — nic się nie zgadza.",
+				},
+				{
+					file: 55,
+					name: "Kot Roboczy",
+					desc: "Dziś jesteś tu do zadań specjalnych (albo przynajmniej tak wyglądasz).",
+				},
+				{
+					file: 56,
+					name: "Chaos na Czterech Łapach",
+					desc: "Niby zabawa, niby wojna — klasyk.",
+				},
+				{
+					file: 57,
+					name: "Kot Nocny Myśliciel",
+					desc: "Siedzisz na ławce i rozkminiasz życie po godzinach.",
+				},
+				{
+					file: 58,
+					name: "Kot Influencer",
+					desc: "Selfik musi być, człowiek się jakoś załapie w tle.",
+				},
+				{
+					file: 59,
+					name: "Absolute Kot",
+					desc: "To moment, w którym wszystko jest kinem.",
+				},
+				{
+					file: 60,
+					name: "Kołdrowy Król",
+					desc: "To jest moje miejsce i nigdzie się nie ruszam.",
+				},
+				{ file: 61, name: "Kot Oskarżyciel", desc: "To on. Zawsze to on." },
+				{
+					file: 62,
+					name: "Zero Wstydu",
+					desc: "Pokazujesz to, co myślisz o całej sytuacji.",
+				},
+				{
+					file: 63,
+					name: "Kot Ambicja",
+					desc: "Sięgasz wyżej, niż sam się spodziewałeś.",
+				},
+				{
+					file: 64,
+					name: "Kołdrowy Filozof",
+					desc: "Myślisz, ale tylko trochę — reszta jutro.",
+				},
+				{
+					file: 65,
+					name: "Puszysta Poduszka",
+					desc: "Leżysz i wyglądasz jak sens życia.",
+				},
+				{
+					file: 66,
+					name: "Gruby Myśliciel",
+					desc: "Dużo ciała, dużo refleksji.",
+				},
+				{
+					file: 67,
+					name: "Plecy do Świata",
+					desc: "Nie dziś. Dziś nie dla ludzi.",
+				},
+				{
+					file: 68,
+					name: "Kot Mroczna Aura",
+					desc: "Niby drapak, ale energia jak z horroru.",
+				},
+				{
+					file: 69,
+					name: "Perfekcyjna Łapka",
+					desc: "Dziś detale robią robotę.",
+				},
+				{
+					file: 70,
+					name: "Kot Konsultant",
+					desc: "Proszę się nie rozłączać, zaraz będę wkurzony.",
+				},
+				{
+					file: 71,
+					name: "Kot Buforowanie",
+					desc: "Myśl się ładuje… proszę czekać.",
+				},
+				{
+					file: 72,
+					name: "Face Reveal",
+					desc: "Oto ja. Teraz możecie klaskać.",
+				},
+				{
+					file: 73,
+					name: "Kot Bez Dystansu",
+					desc: "Halo, to jest za blisko.",
+				},
+				{
+					file: 74,
+					name: "Kot Smutna Chwila",
+					desc: "Siedzisz i pozwalasz sobie na moment ciszy.",
+				},
+				{
+					file: 75,
+					name: "Kot Podryw",
+					desc: "Nie wiesz co powiedzieć, ale liczysz na spojrzenie.",
+				},
+				{
+					file: 76,
+					name: "Mały Wkurz",
+					desc: "Niewielki rozmiar, ogromne emocje.",
+				},
+				{
+					file: 77,
+					name: "Kot Zachwyt",
+					desc: "Patrzysz tak, jakbyś właśnie zobaczył sens życia.",
+				},
+				{
+					file: 78,
+					name: "Szok Totalny",
+					desc: "Nie wiesz co się dzieje i boisz się zapytać.",
+				},
+				{
+					file: 79,
+					name: "Kot Potrzeba",
+					desc: "Oddaj koc. Teraz. Natychmiast.",
+				},
+				{
+					file: 80,
+					name: "Kot Samoświadomość",
+					desc: "Nie zgadzasz się, ale trochę jednak tak.",
+				},
+				{
+					file: 81,
+					name: "Nerwy w Ramionach",
+					desc: "Nie dotykaj, bo będzie awantura.",
+				},
+				{
+					file: 82,
+					name: "Uszy Problematyczne",
+					desc: "Coś tu jest nie tak… ale trudno powiedzieć co.",
+				},
+				{
+					file: 83,
+					name: "Kot Przyłapany",
+					desc: "To nie ja. To się samo rozsypało.",
+				},
+				{
+					file: 84,
+					name: "Kot Podróżnik",
+					desc: "Jesteś spakowany emocjonalnie i gotowy na ucieczkę.",
+				},
+				{
+					file: 85,
+					name: "Kot Decyzja",
+					desc: "Zanim pomyślisz — już lecisz.",
+				},
+				{
+					file: 86,
+					name: "Kot Pokusa",
+					desc: "Brzuch pełny, ale serce chce frytki.",
+				},
+				{
+					file: 87,
+					name: "Zdziwiony Egzemplarz",
+					desc: "Nie spodziewałeś się tego absolutnie wcale.",
+				},
+				{
+					file: 88,
+					name: "Trójkąt Emocji",
+					desc: "Każdy przeżywa to zupełnie inaczej.",
+				},
+				{ file: 89, name: "Kot Sowa", desc: "Mądry wygląd, chaos w środku." },
+				{
+					file: 90,
+					name: "Kot na Doładowaniu",
+					desc: "Energia: 3%. Proszę nie przeszkadzać.",
+				},
+				{
+					file: 91,
+					name: "Kot Gotowość",
+					desc: "Nie chcesz bójki, ale jesteś gotowy.",
+				},
+				{
+					file: 92,
+					name: "Gruby Komfort",
+					desc: "Ktoś Cię ściska i nawet jest okej.",
+				},
+				{
+					file: 93,
+					name: "Kot Po Przerwie",
+					desc: "Nie pytaj. To skomplikowane.",
+				},
+				{
+					file: 94,
+					name: "Kot Zamyślenie",
+					desc: "Myślisz intensywnie, choć nie do końca wiesz o czym.",
+				},
+				{
+					file: 95,
+					name: "Kot Pracownik Biurowy",
+					desc: "Niby siedzisz, niby pracujesz.",
+				},
+				{
+					file: 96,
+					name: "Kot Rozlany",
+					desc: "Tak się śpi, kiedy życie jest ciężkie.",
+				},
+				{
+					file: 97,
+					name: "Kot Mleczny Wąs",
+					desc: "Piłeś jak profesjonalista, wygląda gorzej.",
+				},
+				{
+					file: 98,
+					name: "Kot Grawitacja",
+					desc: "To było złe miejsce i zły moment.",
+				},
+				{
+					file: 99,
+					name: "Kot Jesienny",
+					desc: "Liść dodał charakteru, nie pytaj.",
+				},
+				{
+					file: 100,
+					name: "Kot Dezorientacja",
+					desc: "Coś się wydarzyło… ale nie pamiętasz co.",
+				},
+				{
+					file: 101,
+					name: "Kot Ostrzeżenie",
+					desc: "Patrzysz tak, że wszyscy wiedzą: lepiej nie teraz.",
+				},
+				{
+					file: 102,
+					name: "Kot Kanapowy Wojownik",
+					desc: "Bronisz swojego miejsca i pilota. Bez dyskusji.",
+				},
+				{
+					file: 103,
+					name: "Kot Gracz Survival",
+					desc: "Masz itemy, plan i zero energii.",
+				},
+				{
+					file: 104,
+					name: "Kot Kuchenny Chaos",
+					desc: "Miało być szybko, wyszło… biało.",
+				},
+				{
+					file: 105,
+					name: "Kot Samoocena",
+					desc: "Nie zgadzasz się, ale humor już poszedł.",
+				},
+				{
+					file: 106,
+					name: "Kot Tryb Nocny",
+					desc: "Ekran świeci, oczy jeszcze bardziej.",
+				},
+				{
+					file: 107,
+					name: "Kot Komfort",
+					desc: "Jesteś przykryty, więc świat może poczekać.",
+				},
+				{ file: 108, name: "Kot Skarga", desc: "ON ZNOWU. ZRÓBCIE COŚ." },
+				{
+					file: 109,
+					name: "Kot Niewinność",
+					desc: "Nic nie zrobiłeś. I będziesz się tego trzymać.",
+				},
+				{
+					file: 110,
+					name: "Kot „Wow”",
+					desc: "Nie wiedziałeś, że tak można, ale można.",
+				},
+				{
+					file: 111,
+					name: "Kot Odkrycie",
+					desc: "Okej, to jest najlepszy moment dnia.",
+				},
+				{
+					file: 112,
+					name: "Kot Co Właśnie",
+					desc: "Nie jesteś gotowy na tę informację.",
+				},
+				{
+					file: 113,
+					name: "Kot Natura",
+					desc: "Wtopiłeś się w otoczenie… przypadkiem.",
+				},
+				{
+					file: 114,
+					name: "Kot Urodzinowy",
+					desc: "Dziś wszystko kręci się wokół Ciebie. Jak zawsze.",
+				},
+				{
+					file: 115,
+					name: "Kot Pielęgniarka",
+					desc: "Spokojnie, to tylko wygląda profesjonalnie.",
+				},
+				{
+					file: 116,
+					name: "Kot Mroczna Gotowość",
+					desc: "Nie atakujesz pierwszy, ale jesteś gotów.",
+				},
+				{
+					file: 117,
+					name: "Kot Absurd",
+					desc: "Nie wiesz czemu, ale akceptujesz.",
+				},
+				{
+					file: 118,
+					name: "Kot Gamer",
+					desc: "Jeszcze jedna runda i idziesz spać. Na pewno.",
+				},
+				{
+					file: 119,
+					name: "Kot Refleksja",
+					desc: "Siedzisz i myślisz, dokąd to wszystko zmierza.",
+				},
+				{
+					file: 120,
+					name: "Kot Agresywna Motywacja",
+					desc: "To nie atak. To zachęta.",
+				},
+				{
+					file: 121,
+					name: "Kot Fajerwerk",
+					desc: "Trochę za mocno, ale efekt jest.",
+				},
+				{
+					file: 122,
+					name: "Kot Boski Dotyk",
+					desc: "To chwila, w której czujesz sens istnienia.",
+				},
+				{
+					file: 123,
+					name: "Kot Aprobatka",
+					desc: "Jest okej. Można iść dalej.",
+				},
+				{
+					file: 124,
+					name: "Kot Pizza Reality Check",
+					desc: "Patrzysz i wiesz, że to już za późno.",
+				},
+				{
+					file: 125,
+					name: "Kot IT Duo",
+					desc: "Jeden klika, drugi udaje, że rozumie.",
+				},
+				{
+					file: 126,
+					name: "Kot Wkurz w Plecaku",
+					desc: "Zamknięty, ale emocje się nie mieszczą.",
+				},
+				{
+					file: 127,
+					name: "Kot Zły Pomysł",
+					desc: "To eskalowało szybciej, niż planowałeś.",
+				},
+				{
+					file: 128,
+					name: "Kot Romantyk",
+					desc: "Nie wiesz co powiedzieć, więc dajesz wszystko.",
+				},
+				{
+					file: 129,
+					name: "Kot Zaskoczenie",
+					desc: "Nie spodziewałeś się tego absolutnie wcale.",
+				},
+				{
+					file: 130,
+					name: "Kot Kontrola",
+					desc: "To ja tu decyduję, co widzimy.",
+				},
+				{
+					file: 131,
+					name: "Kot Szacunek",
+					desc: "Stoisz dumnie. Dzień zakończony.",
+				},
+			];
+
+			const catFacts = [
+				"Koty mogą spać nawet 16–20 godzin dziennie.",
+				"Koty mają 175 mięśni w uszach i potrafią obracać je niezależnie.",
+				"Mruczenie kota może leczyć kości i mięśnie.",
+				"Koty mają tylko 5 palców z przodu i 4 z tyłu, choć czasem występują koty polidaktyle.",
+				"Koty widzą w ciemności 6 razy lepiej niż człowiek, ale nie w totalnej ciemności.",
+				"Koty potrafią skakać nawet 5 razy wyżej niż wysokość swojego ciała.",
+				"Koty używają ogona do równowagi – prosty ogon oznacza szczęście.",
+				"Koty rozpoznają głos swojego właściciela, choć często ignorują polecenia.",
+				"Mruczenie kota może oznaczać stres lub ból, nie tylko przyjemność.",
+				"Niektóre koty przynoszą prezenty, np. martwe zwierzęta lub zabawki.",
+				"Koty mogą czytać nastrój człowieka po tonie głosu i gestach.",
+				"Koty pocą się głównie przez łapy i język.",
+				"Koty mają oczy w kształcie pionowej szczeliny, co pomaga kontrolować ilość światła.",
+				"Koty mogą wyczuć wstrząsy sejsmiczne wcześniej niż ludzie.",
+				"Koty mają wibrysy (wąsy) tak czułe, że wyczuwają drobne zmiany powietrza.",
+				"Koty śpią z jednym okiem otwartym, gdy czują się niepewnie.",
+				"Koty potrafią lądować na czterech łapach po upadku.",
+				"W starożytnym Egipcie koty były święte – zabicie kota było karane śmiercią.",
+				"W Japonii koty Maneki-neko przynoszą szczęście i pieniądze.",
+				"Koty były opiekunami domowego ogniska i chroniły zapasy przed gryzoniami.",
+				"W średniowiecznej Europie koty czarne były uważane za pechowe.",
+				"Koty uwielbiają pudełka, nawet jeśli są za małe.",
+				"Koty czasem reagują strachem na ogórki.",
+				"Koty 'rozmawiają' z człowiekiem za pomocą różnych miauknięć.",
+				"Koty potrafią przyjmować dziwne pozycje, które wyglądają jak joga.",
+				"Koty mają swoją osobowość – od 'władców domu' po nieśmiałych obserwatorów.",
+				"Koty uczą się przez obserwację i kopiowanie zachowań człowieka.",
+				"Koty mają doskonałą pamięć krótkotrwałą, pomagającą planować skoki i polowania.",
+				"Mruczenie kota działa uspokajająco na ludzi, obniżając stres i ciśnienie.",
+				"Koty mają bardziej rozwinięty słuch niż psy i słyszą ultradźwięki.",
+				"Koty często ignorują wszystko, co nie jest dla nich istotne.",
+				"Koty uwielbiają leżeć na klawiaturach, bo jest ciepło i przyciągają uwagę.",
+				"Koty czasem siedzą w dziwnych miejscach, aby być w centrum uwagi.",
+				"Koty mają ulubione osoby w domu – reszta jest mniej ważna.",
+				"Koty potrafią spać w niewygodnych pozycjach, a i tak wyglądają majestatycznie.",
+			];
+
+			const totalKotki = kotkiData.length;
+			const today = new Date();
+			let dailyIndex = today.getDate() % totalKotki;
+
+			function showKotek(index) {
+				const kotek = kotkiData[index];
+				document.getElementById("kotekImg").src = `kotki/${kotek.file}.jpg`;
+				document.getElementById("kotekName").textContent = kotek.name;
+				document.getElementById("kotekDesc").textContent = kotek.desc;
+				document.getElementById("catFact").textContent =
+					catFacts[Math.floor(Math.random() * catFacts.length)];
+			}
+
+			showKotek(dailyIndex);
+		</script>
+
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+	</body>
+</html>
