@@ -4,6 +4,10 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Flappy Cat 🐱</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
 
 		<style>
 			* {
@@ -15,11 +19,10 @@
 			}
 
 			body {
-				height: 100vh;
+				min-height: 100vh;
 				background: radial-gradient(circle at top, #1a0f2e, #05010a);
 				display: flex;
-				justify-content: center;
-				align-items: center;
+				flex-direction: column;
 				font-family: Arial, sans-serif;
 			}
 
@@ -28,11 +31,110 @@
 				border-radius: 20px;
 				box-shadow: 0 0 35px rgba(180, 120, 255, 0.35);
 			}
+			.game-wrapper {
+				flex: 1;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				padding: 20px 0;
+			}
+
+			canvas {
+				background: linear-gradient(#0c0718, #14082b);
+				border-radius: 20px;
+				box-shadow: 0 0 35px rgba(180, 120, 255, 0.35);
+			}
+			/* FOOTER */
+			footer {
+				text-align: center;
+				margin-top: auto;
+				background-color: #181818;
+				border-top: 1px solid #37048a;
+				padding: 1.5rem 0;
+				color: #cfcfcf;
+				width: 100%;
+			}
+
+			footer a {
+				color: #cfc9ff;
+				margin: 0 0.5rem;
+				text-decoration: none;
+			}
+			footer a:hover {
+				text-decoration: underline;
+			}
+			/* ===== NAVBAR ===== */
+			.navbar {
+				background-color: #181818 !important;
+				border-bottom: 1px solid #2a2a2a;
+			}
+
+			.navbar-brand {
+				font-weight: 600;
+				letter-spacing: 0.5px;
+			}
+
+			.navbar-nav .nav-link {
+				color: #cfcfcf;
+				margin-right: 1rem;
+				transition: color 0.2s ease;
+			}
+
+			.navbar-nav .nav-link:hover {
+				color: #9b5cff; /* subtelny fiolet */
+			}
+			.volume-ui {
+				position: absolute;
+				bottom: 130px;
+				left: 95%;
+				transform: translateX(-50%);
+				background: rgba(20, 10, 40, 0.6);
+				backdrop-filter: blur(6px);
+				padding: 8px 14px;
+				border-radius: 12px;
+				color: #e6ccff;
+				font-size: 14px;
+			}
+
+			.volume-ui input {
+				vertical-align: middle;
+			}
 		</style>
 	</head>
 
 	<body>
-		<canvas id="game"></canvas>
+		<!-- Nagłówek -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
+			<div class="container-fluid">
+				<a class="navbar-brand text-light" href="index.html">Strona główna</a>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarNavAltMarkup"
+					aria-controls="navbarNavAltMarkup"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+					<div class="navbar-nav">
+						<a class="nav-link text-light" href="projekty.html">Projekty</a>
+						<a class="nav-link text-light" href="fotografia.html">fotografia</a>
+						<a class="nav-link text-light" href="kontakt.html">O mnie</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+		<div class="volume-ui">
+			🔊
+			<input type="range" min="0" max="100" value="40" id="volume" />
+		</div>
+
+		<div class="game-wrapper">
+			<canvas id="game"></canvas>
+		</div>
 
 		<script>
 			const canvas = document.getElementById("game");
@@ -91,7 +193,8 @@
 			function input() {
 				if (!started) {
 					started = true;
-					sndBg.play();
+					sndBg.currentTime = 0;
+					sndBg.play(); // 🔥 TEGO BRAKOWAŁO
 					return;
 				}
 				if (gameOver) {
@@ -267,6 +370,32 @@
 				requestAnimationFrame(loop);
 			}
 			loop();
+
+			const volumeSlider = document.getElementById("volume");
+
+			function setVolume(v) {
+				const vol = v * 0.01;
+				sndJump.volume = 0.6 * vol;
+				sndFish.volume = 0.7 * vol;
+				sndHit.volume = 0.8 * vol;
+				sndBg.volume = 0.25 * vol;
+			}
+
+			setVolume(volumeSlider.value);
+
+			volumeSlider.addEventListener("input", (e) => {
+				setVolume(e.target.value);
+			});
 		</script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+		<footer>
+			<p>© 2026 Piotrek. Wszystkie prawa zastrzeżone.</p>
+			<p>
+				<a href="index.html">Strona główna</a> |
+				<a href="projekty.html">Projekty</a> |
+				<a href="fotografia.html">Fotografia</a> |
+				<a href="kontakt.html">Kontakt</a>
+			</p>
+		</footer>
 	</body>
 </html>

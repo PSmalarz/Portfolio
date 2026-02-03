@@ -256,13 +256,18 @@
 
 		<script>
 			let isOpening = false;
+			const sndCaseOpen = new Audio("sounds/case_open.mp3");
+			const sndCaseWin = new Audio("sounds/case_win.mp3");
+
+			sndCaseOpen.volume = 0.05;
+			sndCaseWin.volume = 0.8;
 			// ===== KONFIGURACJA =====
 			const kotkiData = [
 				{
 					file: 1,
 					name: "Mistrz Drzemki",
 					desc: "Dziś jesteś offline i absolutnie nikogo to nie obchodzi.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 2,
@@ -310,7 +315,7 @@
 					file: 9,
 					name: "Kot Oceniający",
 					desc: "Nic nie mówisz, ale wszyscy wiedzą, co myślisz.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 10,
@@ -340,7 +345,7 @@
 					file: 14,
 					name: "Śpioch Ekstremalny",
 					desc: "Sen wszedł za mocno i nie planuje wychodzić.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 15,
@@ -352,7 +357,7 @@
 					file: 16,
 					name: "Ja Mam Pytanie",
 					desc: "Chcesz coś powiedzieć, ale sam nie wiesz co.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 17,
@@ -376,7 +381,7 @@
 					file: 20,
 					name: "Kot Budyń",
 					desc: "Miało być elegancko, wyszło jak zawsze.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 21,
@@ -388,13 +393,13 @@
 					file: 22,
 					name: "Dobry Dzień Kotku",
 					desc: "Masz dziś energię do interakcji. Krótko, ale masz.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 23,
 					name: "Podwójna Moc",
 					desc: "Masz tak dobry humor, że rozdajesz go na lewo i prawo.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 24,
@@ -406,7 +411,7 @@
 					file: 25,
 					name: "Kot Informatyk",
 					desc: "Nie dotykaj. Ja to naprawię (dalej nie działa).",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 26,
@@ -418,13 +423,13 @@
 					file: 27,
 					name: "Smutny Kartofelek",
 					desc: "Siedzisz i myślisz, co poszło nie tak… wszystko.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 28,
 					name: "Kot Zmęczony Życiem",
 					desc: "Siedzisz przy stole jakbyś właśnie skończył 12-godzinny dzień życia.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 29,
@@ -442,25 +447,25 @@
 					file: 31,
 					name: "Bezpieczna Kryjówka",
 					desc: "Ukryłeś się i nie planujesz wracać do rzeczywistości, nie w tych czystych stópkach.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 32,
 					name: "Świąteczny Sabotażysta",
 					desc: "Niby niewinnie, ale zaraz coś zgaśnie.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 33,
 					name: "Kot Oreo",
 					desc: "Tylko jednego… no dobra, jeszcze jednego.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 34,
 					name: "Rudy Relaks",
 					desc: "Przeciągasz się, bo życie i tak poczeka.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 35,
@@ -478,13 +483,13 @@
 					file: 37,
 					name: "Gwiazda Programu",
 					desc: "Nie wiesz czemu, ale wszyscy patrzą właśnie na Ciebie.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 38,
 					name: "Kot Refleksyjny",
 					desc: "Patrzysz w dal i udajesz, że masz wszystko pod kontrolą.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 39,
@@ -496,49 +501,49 @@
 					file: 40,
 					name: "Kot Detektyw",
 					desc: "Widzisz wszystko. I wszystkim trochę nie ufasz.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 41,
 					name: "Kot Melancholia",
 					desc: "Leżysz tak i rozmyślasz, jakby to była scena z filmu.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 42,
 					name: "Kot z Alternatywnej Rzeczywistości",
 					desc: "Jedna część Ciebie ogarnia, druga już dawno odpadła.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 43,
 					name: "Kot Szczęście",
 					desc: "Daj mi jeszcze chwilę, jest idealnie.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 44,
 					name: "Kot w Tarapatach",
 					desc: "Niby nic nie robiłeś, a jakoś się zaplątało.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 45,
 					name: "Kot Niepokój",
 					desc: "Siedzisz w kącie i obserwujesz… na wszelki wypadek.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 46,
 					name: "Kot Głodomór",
 					desc: "Dlaczego świat nie pozwala Ci być szczęśliwym?",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 47,
 					name: "Kot Degustator",
 					desc: "Jesz, ale z pełną kontrolą sytuacji (teoretycznie).",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 48,
@@ -556,7 +561,7 @@
 					file: 50,
 					name: "Kot Wkurzony",
 					desc: "Nie podchodź. Serio. To nie jest dobry moment.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 51,
@@ -574,19 +579,19 @@
 					file: 53,
 					name: "Kot Zachwyt",
 					desc: "Ale fajny kot… czekaj, to ja!",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 54,
 					name: "Zdziwienie Poziom Hard",
 					desc: "Ty zdziwiony, Ty z tyłu też zdziwiony, nic się nie zgadza.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 55,
 					name: "Kot Roboczy",
 					desc: "Dziś jesteś tu do zadań specjalnych (albo przynajmniej tak wyglądasz).",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 56,
@@ -604,13 +609,13 @@
 					file: 58,
 					name: "Kot Influencer",
 					desc: "Selfik musi być, człowiek się jakoś załapie w tle.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 59,
 					name: "Absolute Kot",
 					desc: "To moment, w którym wszystko jest kinem.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 60,
@@ -664,7 +669,7 @@
 					file: 68,
 					name: "Kot Szatan",
 					desc: "Niby drapak, ale energia jak z horroru.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 69,
@@ -706,7 +711,7 @@
 					file: 75,
 					name: "Kot Podryw",
 					desc: "Nie wiesz co powiedzieć, ale liczysz na spojrzenie.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 76,
@@ -730,13 +735,13 @@
 					file: 79,
 					name: "Kot Kociarz",
 					desc: "Oddaj koc. Teraz. Natychmiast.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 80,
 					name: "Kot Samoświadomość",
 					desc: "Nie zgadzasz się, ale trochę jednak tak.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 81,
@@ -748,7 +753,7 @@
 					file: 82,
 					name: "Kot Uszaty",
 					desc: "Coś tu jest nie tak… ale trudno powiedzieć co.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 83,
@@ -772,7 +777,7 @@
 					file: 86,
 					name: "Kot Pokusa",
 					desc: "Brzuch pełny, ale serce chce frytki.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 87,
@@ -784,7 +789,7 @@
 					file: 88,
 					name: "Trójkąt Emocji",
 					desc: "Każdy przeżywa to zupełnie inaczej.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 89,
@@ -797,13 +802,13 @@
 					file: 90,
 					name: "Kot na Doładowaniu",
 					desc: "Energia: 3%. Proszę nie przeszkadzać.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 91,
 					name: "Kot Kibol",
 					desc: "Nie chcesz bójki, ale jesteś gotowy.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 92,
@@ -815,7 +820,7 @@
 					file: 93,
 					name: "Kot Po Przerwie",
 					desc: "Nie pytaj. To skomplikowane.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 94,
@@ -827,7 +832,7 @@
 					file: 95,
 					name: "Kot Pracownik Biurowy",
 					desc: "Niby siedzisz, niby pracujesz, ale jednak wróciłbyś do domu.",
-					rarity: "Mythic",
+					rarity: "Epic",
 				},
 				{
 					file: 96,
@@ -845,13 +850,13 @@
 					file: 98,
 					name: "Kot Grawitacja",
 					desc: "To było złe miejsce i zły moment.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 99,
 					name: "Kot Jesienny",
 					desc: "Liść dodał charakteru, nie pytaj.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 100,
@@ -869,13 +874,13 @@
 					file: 102,
 					name: "Kot Kanapowy Wojownik",
 					desc: "Bronisz swojego miejsca i pilota. Bez dyskusji.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 103,
 					name: "Kot Gracz Survival",
 					desc: "Straciłeś itemy, plan i pozostało tylko zero energii.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 104,
@@ -923,7 +928,7 @@
 					file: 111,
 					name: "Kot Odkrycie",
 					desc: "Okej, to jest najlepszy moment dnia.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 112,
@@ -941,31 +946,31 @@
 					file: 114,
 					name: "Kot Urodzinowy",
 					desc: "Dziś wszystko kręci się wokół Ciebie. Jak zawsze.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 115,
 					name: "Kot Pielęgniarka",
 					desc: "Spokojnie, to tylko wygląda profesjonalnie.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 116,
 					name: "Kot Mroczna Gotowość",
 					desc: "Nie atakujesz pierwszy, ale jesteś gotów.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 117,
 					name: "Kot Banan",
 					desc: "Nie wiesz czemu, ale akceptujesz, kim jesteś.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 118,
 					name: "Kot Gamer",
 					desc: "Jeszcze jedna runda i idziesz spać. Na pewno, na przegranej się nie kończy.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 119,
@@ -989,7 +994,7 @@
 					file: 122,
 					name: "Kot Boski Dotyk",
 					desc: "To chwila, w której czujesz sens istnienia.",
-					rarity: "Common",
+					rarity: "Mythic",
 				},
 				{
 					file: 123,
@@ -1001,7 +1006,7 @@
 					file: 124,
 					name: "Kot Pizza Reality Check",
 					desc: "Patrzysz i wiesz, że to już za chwilkę będzie wyżerka życia.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 125,
@@ -1019,13 +1024,13 @@
 					file: 127,
 					name: "Kot Bandyta",
 					desc: "To eskalowało szybciej, niż planowałeś.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 128,
 					name: "Kot Romantyk",
 					desc: "Nie wiesz co powiedzieć, więc dajesz wszystko.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 129,
@@ -1043,7 +1048,7 @@
 					file: 131,
 					name: "Kot Żołnierz",
 					desc: "Stoisz dumnie. Czekasz na rozkazy.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 			];
 
@@ -1115,6 +1120,9 @@
 
 				if (isOpening) return;
 				isOpening = true;
+				sndCaseOpen.pause();
+				sndCaseOpen.currentTime = 0;
+				sndCaseOpen.play().catch((e) => console.log("audio blocked", e));
 
 				const strip = document.getElementById("caseStrip");
 				const container = document.querySelector(".case-container");
@@ -1126,7 +1134,7 @@
 
 				void strip.offsetWidth;
 
-				strip.style.transition = "transform 4s cubic-bezier(0.1, 0.9, 0.2, 1)";
+				strip.style.transition = "4.5s cubic-bezier(0.05, 0.9, 0.1, 1)";
 
 				// LOSOWANIE
 				const items = [];
@@ -1158,16 +1166,22 @@
 					strip.style.transform = `translateX(-${centerOffset}px)`;
 				}, 50);
 
-				setTimeout(() => showResult(finalCat), 4200);
+				setTimeout(() => showResult(finalCat), 4500);
 			}
 
 			function showResult(cat) {
+				sndCaseWin.currentTime = 0;
+				sndCaseWin.play();
+
 				try {
-					const isDuplicate = unlocked.includes(cat.file);
+					const isDuplicate = unlocked.some((u) => u.id === cat.file);
 					document.getElementById("kotekImg").style.display = "block";
 
 					if (!isDuplicate) {
-						unlocked.push(cat.file);
+						unlocked.push({
+							id: cat.file,
+							date: new Date().toISOString(),
+						});
 						localStorage.setItem(STORAGE_KEY, JSON.stringify(unlocked));
 					}
 

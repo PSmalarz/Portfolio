@@ -1,107 +1,123 @@
 <!doctype html>
 <html lang="pl">
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Mój Ekwipunek 🐱</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Mój Ekwipunek 🐾</title>
+
 		<link
 			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
 			rel="stylesheet"
 		/>
+
 		<style>
 			body {
-				background: radial-gradient(
-					circle at top,
-					rgba(0, 0, 0, 0.1),
-					#0c0225 70%
-				);
-				color: #e0e0e0;
-				font-family: "Inter", sans-serif;
-				text-align: center;
-				min-height: 100vh;
-				display: flex;
-				flex-direction: column;
+				background: #121212;
+				color: #eee;
+				font-family: Inter, sans-serif;
 			}
+
+			.grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+				gap: 18px;
+			}
+
+			.cat-card {
+				background: #1c1c1c;
+				border-radius: 14px;
+				padding: 10px;
+				cursor: pointer;
+				border: 2px solid #333;
+				transition: 0.25s;
+				position: relative;
+			}
+
+			.cat-card:hover {
+				transform: translateY(-4px) scale(1.03);
+				box-shadow: 0 0 20px rgba(155, 92, 255, 0.3);
+			}
+
+			.cat-card img {
+				width: 100%;
+				height: 120px;
+				object-fit: cover;
+				border-radius: 10px;
+			}
+
+			.locked img {
+				filter: grayscale(100%) brightness(0.3);
+			}
+
+			.locked::after {
+				content: "🔒";
+				position: absolute;
+				top: 8px;
+				right: 10px;
+				font-size: 22px;
+			}
+
+			.cat-name {
+				margin-top: 6px;
+				font-size: 0.9rem;
+				text-align: center;
+			}
+
+			.rarity-Common {
+				border-color: #777;
+			}
+			.rarity-Epic {
+				border-color: #b366ff;
+			}
+			.rarity-Mythic {
+				border-color: red;
+				box-shadow: 0 0 12px red;
+			}
+
+			.filter-btn {
+				border: 1px solid #9b5cff;
+				color: #9b5cff;
+				background: transparent;
+				border-radius: 20px;
+				padding: 4px 12px;
+				margin-right: 6px;
+			}
+			.filter-btn.active,
+			.filter-btn:hover {
+				background: #9b5cff;
+				color: #fff;
+			}
+			/* ===== NAVBAR ===== */
 			.navbar {
 				background-color: #181818 !important;
 				border-bottom: 1px solid #2a2a2a;
 			}
-			.nav-link {
+
+			.navbar-brand {
+				font-weight: 600;
+				letter-spacing: 0.5px;
+			}
+
+			.navbar-nav .nav-link {
 				color: #cfcfcf;
-			}
-			.nav-link:hover {
-				color: #9b5cff;
-			}
-			h1 {
-				margin-top: 2rem;
-				color: #9b5cff;
+				margin-right: 1rem;
+				transition: color 0.2s ease;
 			}
 
-			.gallery {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-				gap: 20px;
-				margin: 20px;
+			.navbar-nav .nav-link:hover {
+				color: #9b5cff; /* subtelny fiolet */
 			}
-			.gallery-item {
-				background: linear-gradient(145deg, #1f1f1f, #2a2a2a);
-				border-radius: 15px;
-				padding: 10px;
-				text-align: center;
-				position: relative;
-				font-size: 14px;
-				box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-				transition:
-					transform 0.3s,
-					box-shadow 0.3s;
-			}
-			.gallery-item:hover {
-				transform: translateY(-5px);
-				box-shadow: 0 8px 20px rgba(155, 92, 255, 0.6);
-			}
-			.gallery-item img {
-				width: 100%;
-				border-radius: 12px;
-				transition: transform 0.3s;
-			}
-			.gallery-item img:hover {
-				transform: scale(1.05);
-			}
-			.gallery-item p {
-				margin-top: 8px;
-				font-weight: 500;
-				color: #e0e0e0;
-				text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
-			}
-			.locked {
-				filter: grayscale(100%) brightness(0.3);
-			}
-			.lock-icon,
-			.count {
-				position: absolute;
-				font-size: 14px;
-				padding: 4px 7px;
-				border-radius: 8px;
-				font-weight: bold;
-			}
-			.lock-icon {
-				top: 8px;
-				right: 8px;
-				background: rgba(0, 0, 0, 0.6);
-			}
-			.count {
-				bottom: 8px;
-				right: 8px;
-				background: rgba(0, 0, 0, 0.6);
-			}
-
+			/* FOOTER */
 			footer {
+				text-align: center;
 				margin-top: auto;
 				background-color: #181818;
 				border-top: 1px solid #37048a;
 				padding: 1.5rem 0;
 				color: #cfcfcf;
+				width: 100%;
 			}
+
 			footer a {
 				color: #cfc9ff;
 				margin: 0 0.5rem;
@@ -110,10 +126,28 @@
 			footer a:hover {
 				text-decoration: underline;
 			}
+			/* ===== PRZYCISKI ===== */
+			.btn-primary {
+				background-color: #9b5cff;
+				border: none;
+				border-radius: 8px;
+				padding: 0.5rem 1.2rem;
+				font-weight: 500;
+				transition:
+					background-color 0.2s ease,
+					transform 0.1s ease;
+			}
+
+			.btn-primary:hover {
+				background-color: #b084ff;
+				transform: translateY(-1px);
+			}
 		</style>
 	</head>
+
 	<body>
-		<nav class="navbar navbar-expand-lg navbar-dark p-3">
+		<!-- Nagłówek -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
 			<div class="container-fluid">
 				<a class="navbar-brand text-light" href="index.html">Strona główna</a>
 				<button
@@ -121,24 +155,52 @@
 					type="button"
 					data-bs-toggle="collapse"
 					data-bs-target="#navbarNavAltMarkup"
+					aria-controls="navbarNavAltMarkup"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
 				>
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 					<div class="navbar-nav">
 						<a class="nav-link text-light" href="projekty.html">Projekty</a>
-						<a class="nav-link text-light" href="fotografia.html">Fotografia</a>
-						<a class="nav-link text-light" href="kontakt.html">Kontakt</a>
+						<a class="nav-link text-light" href="fotografia.html">fotografia</a>
+						<a class="nav-link text-light" href="kontakt.html">O mnie</a>
 					</div>
 				</div>
 			</div>
 		</nav>
+		<!-- Nagłówek -->
 
-		<h1>🐾 Mój pełny ekwipunek</h1>
-		<div id="gallery" class="gallery"></div>
+		<div class="container mt-4">
+			<h3>Kolekcja</h3>
+			<p id="counter"></p>
 
+			<div class="mb-3">
+				<button class="filter-btn active" data-filter="all">Wszystkie</button>
+				<button class="filter-btn" data-filter="Common">Common</button>
+				<button class="filter-btn" data-filter="Epic">Epic</button>
+				<button class="filter-btn" data-filter="Mythic">Mythic</button>
+			</div>
+
+			<div class="grid" id="grid"></div>
+		</div>
+
+		<!-- MODAL -->
+		<div class="modal fade" id="catModal">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content bg-dark text-light">
+					<div class="modal-body text-center">
+						<img id="modalImg" class="img-fluid rounded mb-3" />
+						<h4 id="modalName"></h4>
+						<p id="modalDesc"></p>
+						<p id="modalDate" class="text-info"></p>
+					</div>
+				</div>
+			</div>
+		</div>
 		<footer>
-			<p>© 2026 Staszek. Wszystkie prawa zastrzeżone.</p>
+			<p>© 2026 Piotrek. Wszystkie prawa zastrzeżone.</p>
 			<p>
 				<a href="index.html">Strona główna</a> |
 				<a href="projekty.html">Projekty</a> |
@@ -148,13 +210,15 @@
 		</footer>
 
 		<script>
-			// Pełne dane kotków
-			const kotkiData = JSON.parse(localStorage.getItem("kotkiData")) || [
+			const STORAGE_KEY = "unlockedCats";
+			const unlocked = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+
+			const kotkiData = [
 				{
 					file: 1,
 					name: "Mistrz Drzemki",
 					desc: "Dziś jesteś offline i absolutnie nikogo to nie obchodzi.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 2,
@@ -202,7 +266,7 @@
 					file: 9,
 					name: "Kot Oceniający",
 					desc: "Nic nie mówisz, ale wszyscy wiedzą, co myślisz.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 10,
@@ -232,7 +296,7 @@
 					file: 14,
 					name: "Śpioch Ekstremalny",
 					desc: "Sen wszedł za mocno i nie planuje wychodzić.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 15,
@@ -244,7 +308,7 @@
 					file: 16,
 					name: "Ja Mam Pytanie",
 					desc: "Chcesz coś powiedzieć, ale sam nie wiesz co.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 17,
@@ -268,7 +332,7 @@
 					file: 20,
 					name: "Kot Budyń",
 					desc: "Miało być elegancko, wyszło jak zawsze.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 21,
@@ -280,13 +344,13 @@
 					file: 22,
 					name: "Dobry Dzień Kotku",
 					desc: "Masz dziś energię do interakcji. Krótko, ale masz.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 23,
 					name: "Podwójna Moc",
 					desc: "Masz tak dobry humor, że rozdajesz go na lewo i prawo.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 24,
@@ -298,7 +362,7 @@
 					file: 25,
 					name: "Kot Informatyk",
 					desc: "Nie dotykaj. Ja to naprawię (dalej nie działa).",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 26,
@@ -310,13 +374,13 @@
 					file: 27,
 					name: "Smutny Kartofelek",
 					desc: "Siedzisz i myślisz, co poszło nie tak… wszystko.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 28,
 					name: "Kot Zmęczony Życiem",
 					desc: "Siedzisz przy stole jakbyś właśnie skończył 12-godzinny dzień życia.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 29,
@@ -334,25 +398,25 @@
 					file: 31,
 					name: "Bezpieczna Kryjówka",
 					desc: "Ukryłeś się i nie planujesz wracać do rzeczywistości, nie w tych czystych stópkach.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 32,
 					name: "Świąteczny Sabotażysta",
 					desc: "Niby niewinnie, ale zaraz coś zgaśnie.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 33,
 					name: "Kot Oreo",
 					desc: "Tylko jednego… no dobra, jeszcze jednego.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 34,
 					name: "Rudy Relaks",
 					desc: "Przeciągasz się, bo życie i tak poczeka.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 35,
@@ -370,13 +434,13 @@
 					file: 37,
 					name: "Gwiazda Programu",
 					desc: "Nie wiesz czemu, ale wszyscy patrzą właśnie na Ciebie.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 38,
 					name: "Kot Refleksyjny",
 					desc: "Patrzysz w dal i udajesz, że masz wszystko pod kontrolą.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 39,
@@ -388,49 +452,49 @@
 					file: 40,
 					name: "Kot Detektyw",
 					desc: "Widzisz wszystko. I wszystkim trochę nie ufasz.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 41,
 					name: "Kot Melancholia",
 					desc: "Leżysz tak i rozmyślasz, jakby to była scena z filmu.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 42,
 					name: "Kot z Alternatywnej Rzeczywistości",
 					desc: "Jedna część Ciebie ogarnia, druga już dawno odpadła.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 43,
 					name: "Kot Szczęście",
 					desc: "Daj mi jeszcze chwilę, jest idealnie.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 44,
 					name: "Kot w Tarapatach",
 					desc: "Niby nic nie robiłeś, a jakoś się zaplątało.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 45,
 					name: "Kot Niepokój",
 					desc: "Siedzisz w kącie i obserwujesz… na wszelki wypadek.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 46,
 					name: "Kot Głodomór",
 					desc: "Dlaczego świat nie pozwala Ci być szczęśliwym?",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 47,
 					name: "Kot Degustator",
 					desc: "Jesz, ale z pełną kontrolą sytuacji (teoretycznie).",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 48,
@@ -448,7 +512,7 @@
 					file: 50,
 					name: "Kot Wkurzony",
 					desc: "Nie podchodź. Serio. To nie jest dobry moment.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 51,
@@ -466,19 +530,19 @@
 					file: 53,
 					name: "Kot Zachwyt",
 					desc: "Ale fajny kot… czekaj, to ja!",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 54,
 					name: "Zdziwienie Poziom Hard",
 					desc: "Ty zdziwiony, Ty z tyłu też zdziwiony, nic się nie zgadza.",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 55,
 					name: "Kot Roboczy",
 					desc: "Dziś jesteś tu do zadań specjalnych (albo przynajmniej tak wyglądasz).",
-					rarity: "Epic",
+					rarity: "Common",
 				},
 				{
 					file: 56,
@@ -496,13 +560,13 @@
 					file: 58,
 					name: "Kot Influencer",
 					desc: "Selfik musi być, człowiek się jakoś załapie w tle.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 59,
 					name: "Absolute Kot",
 					desc: "To moment, w którym wszystko jest kinem.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 60,
@@ -556,7 +620,7 @@
 					file: 68,
 					name: "Kot Szatan",
 					desc: "Niby drapak, ale energia jak z horroru.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 69,
@@ -598,7 +662,7 @@
 					file: 75,
 					name: "Kot Podryw",
 					desc: "Nie wiesz co powiedzieć, ale liczysz na spojrzenie.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 76,
@@ -622,13 +686,13 @@
 					file: 79,
 					name: "Kot Kociarz",
 					desc: "Oddaj koc. Teraz. Natychmiast.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 80,
 					name: "Kot Samoświadomość",
 					desc: "Nie zgadzasz się, ale trochę jednak tak.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 81,
@@ -640,7 +704,7 @@
 					file: 82,
 					name: "Kot Uszaty",
 					desc: "Coś tu jest nie tak… ale trudno powiedzieć co.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 83,
@@ -664,7 +728,7 @@
 					file: 86,
 					name: "Kot Pokusa",
 					desc: "Brzuch pełny, ale serce chce frytki.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 87,
@@ -676,7 +740,7 @@
 					file: 88,
 					name: "Trójkąt Emocji",
 					desc: "Każdy przeżywa to zupełnie inaczej.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 89,
@@ -689,13 +753,13 @@
 					file: 90,
 					name: "Kot na Doładowaniu",
 					desc: "Energia: 3%. Proszę nie przeszkadzać.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 91,
 					name: "Kot Kibol",
 					desc: "Nie chcesz bójki, ale jesteś gotowy.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 92,
@@ -707,7 +771,7 @@
 					file: 93,
 					name: "Kot Po Przerwie",
 					desc: "Nie pytaj. To skomplikowane.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 94,
@@ -719,7 +783,7 @@
 					file: 95,
 					name: "Kot Pracownik Biurowy",
 					desc: "Niby siedzisz, niby pracujesz, ale jednak wróciłbyś do domu.",
-					rarity: "Mythic",
+					rarity: "Epic",
 				},
 				{
 					file: 96,
@@ -737,13 +801,13 @@
 					file: 98,
 					name: "Kot Grawitacja",
 					desc: "To było złe miejsce i zły moment.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 99,
 					name: "Kot Jesienny",
 					desc: "Liść dodał charakteru, nie pytaj.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 100,
@@ -761,13 +825,13 @@
 					file: 102,
 					name: "Kot Kanapowy Wojownik",
 					desc: "Bronisz swojego miejsca i pilota. Bez dyskusji.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 103,
 					name: "Kot Gracz Survival",
 					desc: "Straciłeś itemy, plan i pozostało tylko zero energii.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 104,
@@ -815,7 +879,7 @@
 					file: 111,
 					name: "Kot Odkrycie",
 					desc: "Okej, to jest najlepszy moment dnia.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 112,
@@ -833,31 +897,31 @@
 					file: 114,
 					name: "Kot Urodzinowy",
 					desc: "Dziś wszystko kręci się wokół Ciebie. Jak zawsze.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 115,
 					name: "Kot Pielęgniarka",
 					desc: "Spokojnie, to tylko wygląda profesjonalnie.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 116,
 					name: "Kot Mroczna Gotowość",
 					desc: "Nie atakujesz pierwszy, ale jesteś gotów.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 117,
 					name: "Kot Banan",
 					desc: "Nie wiesz czemu, ale akceptujesz, kim jesteś.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 118,
 					name: "Kot Gamer",
 					desc: "Jeszcze jedna runda i idziesz spać. Na pewno, na przegranej się nie kończy.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 119,
@@ -881,7 +945,7 @@
 					file: 122,
 					name: "Kot Boski Dotyk",
 					desc: "To chwila, w której czujesz sens istnienia.",
-					rarity: "Common",
+					rarity: "Mythic",
 				},
 				{
 					file: 123,
@@ -893,7 +957,7 @@
 					file: 124,
 					name: "Kot Pizza Reality Check",
 					desc: "Patrzysz i wiesz, że to już za chwilkę będzie wyżerka życia.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 125,
@@ -911,13 +975,13 @@
 					file: 127,
 					name: "Kot Bandyta",
 					desc: "To eskalowało szybciej, niż planowałeś.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 128,
 					name: "Kot Romantyk",
 					desc: "Nie wiesz co powiedzieć, więc dajesz wszystko.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 				{
 					file: 129,
@@ -935,55 +999,60 @@
 					file: 131,
 					name: "Kot Żołnierz",
 					desc: "Stoisz dumnie. Czekasz na rozkazy.",
-					rarity: "Common",
+					rarity: "Epic",
 				},
 			];
 
-			// Inicjalizacja kolekcji w localStorage
-			function initCollection() {
-				if (!localStorage.getItem("catCollection")) {
-					const initial = {};
-					kotkiData.forEach((cat) => (initial[cat.file] = 0)); // wszystkie kotki zablokowane
-					localStorage.setItem("catCollection", JSON.stringify(initial));
-				}
-			}
+			const grid = document.getElementById("grid");
+			const counter = document.getElementById("counter");
 
-			// Pobranie kolekcji z localStorage
-			function getCollection() {
-				return JSON.parse(localStorage.getItem("catCollection"));
-			}
+			counter.textContent = `Odblokowane: ${unlocked.length} / ${kotkiData.length}`;
 
-			// Odblokowanie kotka (przykład, możesz wywołać przy kliknięciu lub po zdobyciu)
-			function unlockCat(catId) {
-				const collection = getCollection();
-				collection[catId] = (collection[catId] || 0) + 1; // dodajemy 1
-				localStorage.setItem("catCollection", JSON.stringify(collection));
-				renderGallery();
-			}
-
-			// Renderowanie galerii
-			function renderGallery() {
-				const gallery = document.getElementById("gallery");
-				const collection = getCollection();
-				gallery.innerHTML = "";
-
+			function render(filter = "all") {
+				grid.innerHTML = "";
 				kotkiData.forEach((cat) => {
-					const unlocked = collection[cat.file] || 0;
+					if (filter !== "all" && cat.rarity !== filter) return;
+
+					const record = unlocked.find((u) => u.id === cat.file);
+					const owned = !!record;
+
 					const div = document.createElement("div");
-					div.className = "gallery-item";
+					div.className = `cat-card rarity-${cat.rarity} ${owned ? "" : "locked"}`;
 
 					div.innerHTML = `
-            <img src="kotki/${cat.file}.jpg" class="${unlocked ? "" : "locked"}" title="${cat.desc}">
-            <p>${cat.name}</p>
-            ${unlocked ? `<span class="count">x${unlocked}</span>` : `<span class="lock-icon">🔒</span>`}
-        `;
-					gallery.appendChild(div);
+			<img src="kotki/${cat.file}.jpg">
+			<div class="cat-name">${owned ? cat.name : "Nieodblokowany"}</div>
+		`;
+
+					if (owned) {
+						div.onclick = () => openModal(cat, record.date);
+					}
+
+					grid.appendChild(div);
 				});
 			}
 
-			// Inicjalizacja i renderowanie
-			initCollection();
-			renderGallery();
+			function openModal(cat, date) {
+				document.getElementById("modalImg").src = `kotki/${cat.file}.jpg`;
+				document.getElementById("modalName").textContent =
+					`${cat.name} (${cat.rarity})`;
+				document.getElementById("modalDesc").textContent = cat.desc;
+				document.getElementById("modalDate").textContent =
+					"Odblokowano: " + new Date(date).toLocaleString();
+				new bootstrap.Modal(catModal).show();
+			}
+
+			document.querySelectorAll(".filter-btn").forEach((btn) => {
+				btn.onclick = () => {
+					document
+						.querySelectorAll(".filter-btn")
+						.forEach((b) => b.classList.remove("active"));
+					btn.classList.add("active");
+					render(btn.dataset.filter);
+				};
+			});
+
+			render();
 		</script>
 
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>

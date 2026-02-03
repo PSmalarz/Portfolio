@@ -199,6 +199,24 @@
 				border-radius: 50%;
 				cursor: pointer;
 			}
+			.cat-ear {
+				position: absolute;
+				top: 15px;
+				right: -50px;
+			}
+			/* ===== BUTTON OUTLINE FIOLET ===== */
+			.btn-outline-purple {
+				border: 1px solid #9b5cff;
+				color: #cfc9ff;
+				border-radius: 8px;
+				padding: 0.5rem 1.2rem;
+				transition: all 0.2s ease;
+			}
+
+			.btn-outline-purple:hover {
+				background-color: #9b5cff;
+				color: #111;
+			}
 		</style>
 	</head>
 	<body>
@@ -282,8 +300,7 @@
 			}
 
 			/* LAURKA */
-			const text =
-				"Obiecuję ciepłe wieczory,\nśmiech bez powodu\ni to, że zawsze będę obok ❤️";
+			const text = "A daj mi spokój wreszcie";
 			let i = 0;
 			function typeText() {
 				if (i < text.length) {
@@ -315,14 +332,14 @@
 			/* ===== HASŁO ===== */
 			const password = "walentynka2026";
 			let entered = prompt("Podaj hasło, aby wejść:");
-			if (entered !== "siema") {
+			if (entered !== "Kuchcik") {
 				document.body.innerHTML =
 					"<h1 style='text-align:center;margin-top:40vh;color:#ff1e56;'>Niepoprawne hasło 😢</h1>";
 			}
 
 			/* ===== MYSTERY BUTTON ===== */
 			const mysteryBtn = document.createElement("button");
-			mysteryBtn.innerText = "🔙";
+			mysteryBtn.innerText = "❤️";
 			mysteryBtn.title = "Wróć do portfolio";
 			mysteryBtn.style.position = "fixed";
 			mysteryBtn.style.top = "15px";
@@ -338,7 +355,7 @@
 
 			/* Funkcja powrotu do innej strony */
 			mysteryBtn.addEventListener("click", () => {
-				window.location.href = "index.html"; // <- tu wstaw swój URL
+				window.location.href = "projekty.html"; // <- tu wstaw swój URL
 			});
 		</script>
 	</body>

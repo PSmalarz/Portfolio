@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Pong - PC i telefon</title>
+		<title>Pong na telefon</title>
 		<style>
 			body {
 				margin: 0;
@@ -99,6 +99,8 @@
 			let lastScorer = 0; // 1=player, 2=AI
 			let gameOver = false;
 
+			const paddleRatio = 0.25; // paletka zajmuje 25% wysokości ekranu
+
 			// Skalowanie canvasu do ekranu
 			function resizeCanvas() {
 				cw = Math.min(window.innerWidth * 0.95, 1000);
@@ -106,14 +108,14 @@
 				canvas.width = cw;
 				canvas.height = ch;
 				scale = cw / 1000;
+
 				if (ball) {
-					// dopasowanie elementów do nowego rozmiaru
 					ball.size = 20 * scale;
 					player.width = 12 * scale;
-					player.height = 100 * scale;
+					player.height = ch * paddleRatio;
 					player.speed = 6 * scale;
 					ai.width = 12 * scale;
-					ai.height = 100 * scale;
+					ai.height = ch * paddleRatio;
 					ai.speed = ai.speed * scale;
 				}
 			}
@@ -127,27 +129,33 @@
 				gameOver = false;
 				lastScorer = 0;
 
+				// Skalowanie prędkości AI na małych ekranach
+				if (window.innerWidth < 600) aiSpeed *= 0.7;
+
 				ball = {
 					size: 20 * scale,
-					x: cw / 2,
-					y: ch / 2,
-					speedX: ballSpeed * scale,
-					speedY: ballSpeed * scale,
+					x: cw / 2 - 10 * scale,
+					y: ch / 2 - 10 * scale,
+					speedX: ballSpeed * scale * (cw / 1000),
+					speedY: ballSpeed * scale * (ch / 500),
 				};
+
 				player = {
 					x: 50 * scale,
-					y: ch / 2 - 50 * scale,
+					y: ch / 2 - (ch * paddleRatio) / 2,
 					width: 12 * scale,
-					height: 100 * scale,
+					height: ch * paddleRatio,
 					speed: 6 * scale,
 				};
+
 				ai = {
 					x: cw - 62 * scale,
-					y: ch / 2 - 50 * scale,
+					y: ch / 2 - (ch * paddleRatio) / 2,
 					width: 12 * scale,
-					height: 100 * scale,
+					height: ch * paddleRatio,
 					speed: aiSpeed * scale,
 				};
+
 				resizeCanvas();
 			}
 
@@ -212,7 +220,7 @@
 						pauseStart = Date.now();
 					}
 				} else if (paused && !gameOver) {
-					ctx.fillStyle = "yellow";
+					ctx.fillStyle = "white";
 					ctx.font = 40 * scale + "px Arial";
 					ctx.textAlign = "center";
 					ctx.fillText(
@@ -230,7 +238,7 @@
 				if (playerScore >= winningScore || aiScore >= winningScore) {
 					gameOver = true;
 					paused = false;
-					ctx.fillStyle = "red";
+					ctx.fillStyle = "white";
 					ctx.font = 50 * scale + "px Arial";
 					ctx.textAlign = "center";
 					ctx.fillText(
@@ -294,7 +302,8 @@
 					e.preventDefault();
 					const touch = e.touches[0];
 					const rect = canvas.getBoundingClientRect();
-					player.y = touch.clientY - rect.top - player.height / 2;
+					const offset = player.height * 0.2; // palec nie zasłania piłki
+					player.y = touch.clientY - rect.top - player.height / 2 - offset;
 					player.y = Math.max(0, Math.min(ch - player.height, player.y));
 				},
 				{ passive: false },
@@ -305,15 +314,15 @@
 				let aiSpeed, ballSpeed;
 				switch (level) {
 					case "easy":
-						aiSpeed = 8;
+						aiSpeed = 6;
 						ballSpeed = 4;
 						break;
 					case "medium":
-						aiSpeed = 10;
+						aiSpeed = 8;
 						ballSpeed = 5;
 						break;
 					case "hard":
-						aiSpeed = 12;
+						aiSpeed = 10;
 						ballSpeed = 6;
 						break;
 				}
@@ -340,6 +349,7 @@
 			// Pierwsze ustawienie canvasu
 			resizeCanvas();
 		</script>
+
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 		<!-- FOOTER -->
 		<footer>
