@@ -211,7 +211,7 @@
 				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 					<div class="navbar-nav">
 						<a class="nav-link text-light" href="projekty.html">Projekty</a>
-						<a class="nav-link text-light" href="fotografia.html">fotografia</a>
+						<a class="nav-link text-light" href="fotografia.html">Fotografia</a>
 						<a class="nav-link text-light" href="kontakt.html">O mnie</a>
 						<a href="ekwipunek.html" class="btn-ekwipunek">Mój ekwipunek 🐾</a>
 					</div>
@@ -245,7 +245,7 @@
 
 		<!-- FOOTER -->
 		<footer>
-			<p>© 2026 Staszek. Wszystkie prawa zastrzeżone.</p>
+			<p>© 2026 Piotrek. Wszystkie prawa zastrzeżone.</p>
 			<p>
 				<a href="index.html">Strona główna</a> |
 				<a href="projekty.html">Projekty</a> |
@@ -259,8 +259,9 @@
 			const sndCaseOpen = new Audio("sounds/case_open.mp3");
 			const sndCaseWin = new Audio("sounds/case_win.mp3");
 
-			sndCaseOpen.volume = 0.05;
-			sndCaseWin.volume = 0.8;
+			sndCaseOpen.volume = 0.5;
+			sndCaseWin.volume = 0.5;
+			sndCaseOpen.loop = true;
 			// ===== KONFIGURACJA =====
 			const kotkiData = [
 				{
@@ -1134,7 +1135,7 @@
 
 				void strip.offsetWidth;
 
-				strip.style.transition = "4.5s cubic-bezier(0.05, 0.9, 0.1, 1)";
+				strip.style.transition = "9.5s cubic-bezier(0.06, 0.9, 0.12, 1)";
 
 				// LOSOWANIE
 				const items = [];
@@ -1166,10 +1167,13 @@
 					strip.style.transform = `translateX(-${centerOffset}px)`;
 				}, 50);
 
-				setTimeout(() => showResult(finalCat), 4500);
+				setTimeout(() => showResult(finalCat), 9000);
 			}
 
 			function showResult(cat) {
+				sndCaseOpen.pause();
+				sndCaseOpen.currentTime = 0;
+
 				sndCaseWin.currentTime = 0;
 				sndCaseWin.play();
 
