@@ -285,6 +285,17 @@
 				startHearts();
 				typeText();
 			});
+			/* OBSŁUGA DOTYKU */
+			paw.addEventListener("touchstart", () => (dragging = true));
+			document.addEventListener("touchend", () => (dragging = false));
+			document.addEventListener("touchmove", (e) => {
+				if (!dragging) return;
+				const rect = catBody.getBoundingClientRect();
+				let x = e.touches[0].clientX - rect.left;
+				x = Math.max(0, Math.min(rect.width, x));
+				paw.style.left = x + "px";
+				audio.volume = x / rect.width;
+			});
 
 			/* SERDUSZKA */
 			function startHearts() {
@@ -301,16 +312,21 @@
 
 			/* LAURKA */
 			const text =
-				"Okej… zrobiło mi to dzień,\n" +
-				"więc uśmiecham się teraz jak głupi 😅\n\n" +
-				"Niby jedno „tak”,\n" +
-				"a wszystko nagle stało się inne.\n" +
-				"Trochę jaśniejsze. Trochę lżejsze.\n\n" +
-				"Dziękuję 💖\n" +
-				"Naprawdę jest dziś trochę milej\n" +
-				"i jakoś tak… lepiej 💫\n\n" +
-				"Ten wieczór ma w sobie coś więcej.\n" +
-				"I to chyba przez Ciebie";
+				"Nie wiem, czy wiesz,\n" +
+				"ale przy Tobie naprawdę mogę być sobą.\n" +
+				"Bez udawania. Bez masek. Po prostu ja.\n\n" +
+				"Lubię to, że jesteś obok.\n" +
+				"Że mogę na Ciebie liczyć.\n" +
+				"Że przy Tobie czuję się spokojny.\n\n" +
+				"Jedno Twoje słowo potrafi zmienić mi dzień.\n" +
+				"I nagle wszystko staje się jaśniejsze.\n" +
+				"Lżejsze.\n\n" +
+				"Dziękuję Ci za to.\n" +
+				"Bo czas z Tobą\n" +
+				"to najpiękniejsze, co mnie w życiu spotkało.\n\n" +
+				"A jeśli ten wieczór jest wyjątkowy...\n" +
+				"to dlatego, że spędzam go z kimś,\n" +
+				"kogo naprawdę nie chcę stracić. 💖";
 
 			let i = 0;
 			function typeText() {
