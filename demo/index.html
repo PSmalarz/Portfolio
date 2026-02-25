@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="pl">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Demo Stron</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+
+		<style>
+			body {
+				background-color: #121212;
+				color: #e0e0e0;
+				font-family: "Inter", sans-serif;
+				display: flex;
+				flex-direction: column;
+				min-height: 100vh;
+			}
+
+			main {
+				flex: 1;
+				padding: 4rem 1rem;
+			}
+
+			/* ===== NAVBAR ===== */
+			.navbar {
+				background-color: #181818 !important;
+				border-bottom: 1px solid #2a2a2a;
+			}
+
+			.navbar-brand {
+				font-weight: 600;
+				letter-spacing: 0.5px;
+			}
+
+			.navbar-nav .nav-link {
+				color: #cfcfcf;
+				margin-right: 1rem;
+				transition: color 0.2s ease;
+			}
+
+			.navbar-nav .nav-link:hover {
+				color: #9b5cff; /* subtelny fiolet */
+			}
+
+			/* KAFELKI */
+			.demo-card {
+				background-color: #1c1c1c;
+				border: 1px solid #2a2a2a;
+				border-radius: 14px;
+				transition: 0.2s ease;
+			}
+
+			.demo-card:hover {
+				transform: translateY(-6px);
+				box-shadow: 0 10px 30px rgba(155, 92, 255, 0.15);
+				border-color: #9b5cff;
+			}
+
+			.btn-purple {
+				background-color: #9b5cff;
+				border: none;
+				border-radius: 8px;
+				padding: 0.5rem 1.2rem;
+				font-weight: 500;
+			}
+
+			.btn-purple:hover {
+				background-color: #b084ff;
+			}
+
+			/* FOOTER */
+			footer {
+				text-align: center;
+				margin-top: auto;
+				background-color: #181818;
+				border-top: 1px solid #37048a;
+				padding: 1.5rem 0;
+				color: #cfcfcf;
+				width: 100%;
+			}
+
+			footer a {
+				color: #cfc9ff;
+				margin: 0 0.5rem;
+				text-decoration: none;
+			}
+			footer a:hover {
+				text-decoration: underline;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- Nagłówek -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
+			<div class="container-fluid">
+				<a class="navbar-brand text-light" href="index.html">Strona główna</a>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarNavAltMarkup"
+					aria-controls="navbarNavAltMarkup"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+					<div class="navbar-nav">
+						<a class="nav-link text-light" href="projekty.html">Projekty</a>
+						<a class="nav-link text-light" href="fotografia.html">Fotografia</a>
+						<a class="nav-link text-light" href="kontakt.html">O mnie</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<!-- GŁÓWNA ZAWARTOŚĆ -->
+		<main class="container">
+			<h1 class="text-center mb-5">Moje strony demo</h1>
+
+			<div class="row g-4">
+				<!-- ===== KAFEL 1 ===== -->
+				<div class="col-md-6 col-lg-4">
+					<div class="card demo-card p-3 h-100">
+						<div class="card-body d-flex flex-column">
+							<h5 class="card-title">Strona Demo Dla Restauracji</h5>
+							<p class="card-text flex-grow-1">
+								Prezentacja w jaki sposób może wyglądac twoja strona.
+							</p>
+							<a href="korea/index.html" class="btn btn-purple">
+								Sprawdź stronę
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- ===== KAFEL 2 ===== -->
+				<div class="col-md-6 col-lg-4">
+					<div class="card demo-card p-3 h-100">
+						<div class="card-body d-flex flex-column">
+							<h5 class="card-title">
+								Strona Demo Dla Gabinetu Stomatologicznego 🎮
+							</h5>
+							<p class="card-text flex-grow-1">
+								Prezentacja w jaki sposób może wyglądac twoja strona.
+							</p>
+							<a href="dentysta/index.html" class="btn btn-purple">
+								Sprawdź stronę
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- TU KOPIUJESZ KOLEJNE KAFELKI -->
+			</div>
+		</main>
+
+		<!-- FOOTER -->
+		<footer>
+			<p>© 2026 Piotrek. Wszystkie prawa zastrzeżone.</p>
+			<p>
+				<a href="index.html">Strona główna</a> |
+				<a href="projekty.html">Projekty</a> |
+				<a href="fotografia.html">Fotografia</a> |
+				<a href="kontakt.html">Kontakt</a>
+			</p>
+		</footer>
+
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+	</body>
+</html>
